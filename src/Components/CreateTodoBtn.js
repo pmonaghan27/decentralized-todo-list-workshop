@@ -1,38 +1,46 @@
-import React, { Component } from 'react'
-import { Button, FormGroup, InputGroup, FormControl } from 'react-bootstrap'
+import React, { Component } from 'react';
+import { Button, FormGroup, InputGroup, FormControl } from 'react-bootstrap';
 
 export default class CreateToDoBtn extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
-      taskName: ""
-    }
+      taskName: '',
+    };
   }
 
-  handleInputChange(event){
-    this.setState({ taskName: event.target.value })
+  handleInputChange(event) {
+    this.setState({ taskName: event.target.value });
   }
 
-  async handleCreateTodo(){
-    const { taskName } = this.state
-    const { createTodo } = this.props
+  async handleCreateTodo() {
+    const { taskName } = this.state;
+    const { createTodo } = this.props;
 
     /* CREATE THE TODO HERE */
+    await createTodo(taskName, { from: this.props.account });
+    this.setState({ taskName: '' });
   }
 
-  render(){
-    const { taskName } = this.state
+  render() {
+    const { taskName } = this.state;
     return (
       <div className="col-md-6">
         <FormGroup>
           <InputGroup>
             <InputGroup.Button>
-              <Button onClick={this.handleCreateTodo.bind(this)} bsStyle="info">Create To Do</Button>
+              <Button onClick={this.handleCreateTodo.bind(this)} bsStyle="info">
+                Create To Do
+              </Button>
             </InputGroup.Button>
-            <FormControl value={taskName} onChange={this.handleInputChange.bind(this)} type="text" />
+            <FormControl
+              value={taskName}
+              onChange={this.handleInputChange.bind(this)}
+              type="text"
+            />
           </InputGroup>
         </FormGroup>
       </div>
-    )
+    );
   }
 }
